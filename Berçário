@@ -1,0 +1,27 @@
+CREATE TABLE Bebe (
+  id_bebe INT PRIMARY KEY AUTO_INCREMENT,
+  nome VARCHAR(50) NOT NULL,
+  data_nascimento DATE NOT NULL,
+  peso_nascimento DECIMAL(3,2) NOT NULL,
+  altura DECIMAL(3,2) NOT NULL,
+  id_mae INT NOT NULL,
+  id_medico INT NOT NULL,
+  FOREIGN KEY (id_mae) REFERENCES Mae(id_mae),
+  FOREIGN KEY (id_medico) REFERENCES Medico(id_medico)
+);
+
+CREATE TABLE Mae (
+  id_mae INT PRIMARY KEY AUTO_INCREMENT,
+  nome VARCHAR(50) NOT NULL,
+  endereco VARCHAR(50) NOT NULL,
+  telefone VARCHAR(20) NOT NULL,
+  data_nascimento DATE NOT NULL
+);
+
+CREATE TABLE Medico (
+  id_medico INT PRIMARY KEY AUTO_INCREMENT,
+  CRM VARCHAR(10) NOT NULL,
+  nome VARCHAR(50) NOT NULL,
+  telefone_celular VARCHAR(20) NOT NULL,
+  especialidade VARCHAR(255) NOT NULL
+);
