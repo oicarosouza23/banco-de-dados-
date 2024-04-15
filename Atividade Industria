@@ -1,0 +1,55 @@
+CREATE DATABASE Industria;
+
+USE Industria;
+
+CREATE TABLE Peças (
+  PeçaID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  Peso DECIMAL(10,2) NOT NULL,
+  Cor VARCHAR(40) NOT NULL
+);
+
+CREATE TABLE Depósito (
+  DepositoID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  Endereco VARCHAR(40) NOT NULL
+);
+
+CREATE TABLE Fornecedor (
+  FornecedorID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  Endereco VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Projeto (
+  ProjetoID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  Orcamento DECIMAL(10,2) NOT NULL
+);
+
+CREATE TABLE Funcionário (
+  FuncionarioID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  Salario DECIMAL(10,2) NOT NULL,
+  Telefone VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Departamento (
+  DepartamentoID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  Setor VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Funcionário_Projeto (  -- Tabela para relacionamento N:M
+  FuncionarioID INT NOT NULL,
+  ProjetoID INT NOT NULL,
+  FOREIGN KEY (FuncionarioID) REFERENCES Funcionário(FuncionarioID),
+  FOREIGN KEY (ProjetoID) REFERENCES Projeto(ProjetoID),
+  PRIMARY KEY (FuncionarioID, ProjetoID)
+);
+
+CREATE TABLE Utilização_Peças (  --controle de material por projeto
+  ProjetoID INT NOT NULL,
+  PeçaID INT NOT NULL,
+  FornecedorID INT NOT NULL,
+  DataInicio DATE NOT NULL,
+  HorasTrabalhadas DECIMAL(10,2) NOT NULL,
+  FOREIGN KEY (ProjetoID) REFERENCES Projeto(ProjetoID),
+  FOREIGN KEY (PeçaID) REFERENCES Peças(PeçaID),
+  FOREIGN KEY (FornecedorID) REFERENCES Fornecedor(FornecedorID),
+  PRIMARY KEY (ProjetoID, PeçaID)
+);
