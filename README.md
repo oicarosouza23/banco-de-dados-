@@ -1,3 +1,5 @@
+// DIA 15/04/2024
+
 insert int cursos values 
 ('1','HTML4','Curso de HTML5','40','37','2014'),
 ('2','Algoritimos','Lógica de Programação','20','15','2014'),
