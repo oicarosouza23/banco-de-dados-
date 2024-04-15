@@ -34,7 +34,7 @@ CREATE TABLE Departamento (
   Setor VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE Funcionário_Projeto (  -- Tabela para relacionamento N:M
+CREATE TABLE Funcionário_Projeto (  -- Tabela para relacionamento 
   FuncionarioID INT NOT NULL,
   ProjetoID INT NOT NULL,
   FOREIGN KEY (FuncionarioID) REFERENCES Funcionário(FuncionarioID),
