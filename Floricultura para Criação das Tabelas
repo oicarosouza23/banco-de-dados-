@@ -1,0 +1,32 @@
+CREATE TABLE Disciplina (
+  id_disciplina INT PRIMARY KEY AUTO_INCREMENT,
+  nome_disciplina VARCHAR(40) NOT NULL
+);
+
+CREATE TABLE Turma (
+  id_turma INT PRIMARY KEY AUTO_INCREMENT,
+  id_disciplina INT NOT NULL,
+  semestre INT NOT NULL,
+  sala VARCHAR(10) NOT NULL,
+  FOREIGN KEY (id_disciplina) REFERENCES Disciplina(id_disciplina)
+);
+
+CREATE TABLE Professor (
+  id_professor INT PRIMARY KEY AUTO_INCREMENT,
+  nome_professor VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Professor_Turma (
+  id_professor INT NOT NULL,
+  id_turma INT NOT NULL,
+  PRIMARY KEY (id_professor, id_turma),
+  FOREIGN KEY (id_professor) REFERENCES Professor(id_professor),
+  FOREIGN KEY (id_turma) REFERENCES Turma(id_turma)
+);
+
+CREATE TABLE Aluno (
+  id_aluno INT PRIMARY KEY AUTO_INCREMENT,
+  nome_aluno VARCHAR(40) NOT NULL,
+  id_turma INT NOT NULL,
+  FOREIGN KEY (id_turma) REFERENCES Turma(id_turma)
+);
