@@ -1,11 +1,128 @@
-insert int cursos values 
-('1','HTML4','Curso de HTML5','40','37','2014'),
-('2','Algoritimos','Lógica de Programação','20','15','2014'),
-('3','Photoshop','Dicursoscas de Photoshop CC', '10', '8','2014'),
-('4','PGP','Curso de PHP para iniciantes','40','20','2010'),
-('5','Jarva','Introdução à Linguagem Java','10','29','2000'),
-('6','MySQL','Bancos de dados MySQL','30','15','2016'),
-('7','Word','Curso completo de Word','40','30','2016'),
-('8','Sapateado','Danças Rítimica','40','30','2018'),
-('9','Cozinha Árabe','Aprenda a fazer Kibe','40','30','2018'),
-('10','YouTbube','Gerar polêmica e ganhar inscritos','5','2','2018'),
+public class Prato {
+  // ... (Atributos e métodos da classe Prato como antes)
+
+  public String toString() {
+    return "Prato: " + nome + ", Ingredientes: " + Arrays.toString(ingredientes) + ", Preço: R$" + preco;
+  }
+}
+
+public class PratoPrincipal extends Prato {
+  // ... (Atributos e métodos da classe PratoPrincipal como antes)
+
+  @Override
+  public String toString() {
+    return super.toString() + ", Tipo Carne: " + tipoCarne + ", Acompanhamentos: " + Arrays.toString(acompanhamentos);
+  }
+}
+
+public class Sobremesa extends Prato {
+  // ... (Atributos e métodos da classe Sobremesa como antes)
+
+  @Override
+  public String toString() {
+    return super.toString() + ", Tamanho Porção: " + tamanhoPorcao;
+  }
+}
+
+public class Pedido {
+  private List<Prato> pratos;
+
+  public Pedido() {
+    pratos = new ArrayList<>();
+  }
+
+  public void adicionarPrato(Prato prato) {
+    pratos.add(prato);
+  }
+
+  public List<Prato> getPratos() {
+    return pratos;
+  }
+
+  public double calcularTotal() {
+    double total = 0.0;
+    for (Prato prato : pratos) {
+      total += prato.getPreco();
+    }
+    return total;
+  }
+
+  @Override
+  public String toString() {
+    return "Pedido: " + pratos + ", Total: R$" + calcularTotal();
+  }
+}
+
+public class SistemaRestaurante {
+
+  private List<Prato> cardapio;
+  private List<Pedido> pedidos;
+
+  public SistemaRestaurante() {
+    cardapio = new ArrayList<>();
+    pedidos = new ArrayList<>();
+  }
+
+  public void adicionarPratoCardapio(Prato prato) {
+    cardapio.add(prato);
+  }
+
+  public void realizarPedido(List<Prato> pratosSelecionados) {
+    Pedido pedido = new Pedido();
+    for (Prato prato : pratosSelecionados) {
+      pedido.adicionarPrato(prato);
+    }
+    pedidos.add(pedido);
+    System.out.println("Pedido realizado com sucesso! Detalhes:");
+    System.out.println(pedido);
+  }
+
+  public void listarCardapio() {
+    System.out.println("Cardápio:");
+    for (Prato prato : cardapio) {
+      System.out.println(prato);
+    }
+  }
+
+  public void listarPedidos() {
+    System.out.println("Pedidos:");
+    for (Pedido pedido : pedidos) {
+      System.out.println(pedido);
+    }
+  }
+
+  public static void main(String[] args) {
+    SistemaRestaurante restaurante = new SistemaRestaurante();
+
+    // Criando alguns pratos para o cardápio
+    PratoPrincipal arrozFrito = new PratoPrincipal(
+        "Arroz Frito", 
+        new String[]{"arroz", "ovos", "vegetais"}, 
+        12.99, 
+        "frango", 
+        new String[]{"rolinho primavera", "sopa wonton"}
+    );
+    Sobremesa boloChocolate = new Sobremesa(
+        "Bolo de Chocolate", 
+        new String[]{"farinha", "açúcar", "cacau em pó"}, 
+        8.50, 
+        "grande"
+    );
+    PratoPrincipal frangoGrelhado = new PratoPrincipal(
+        "Frango Grelhado", 
+        new String[]{"frango", "batata", "salada"}, 
+        15.99, 
+        "peito", 
+        new String[]{"molho vinagrete", "arroz branco"}
+    );
+
+    // Adicionando pratos ao cardápio
+    restaurante.adicionarPratoCardapio(arrozFrito);
+    restaurante.adicionarPratoCardapio(boloChocolate);
+    restaurante.adicionarPratoCardapio(frangoGrelhado);
+
+    // Exemplo de realização de um pedido
+    List<Prato> pratosSelecionados = new ArrayList<>();
+    pratosSelecionados.add(arrozFrito);
+    pratosSelecionados.add(frangoGrelhado);
+    pratosSelecionados.add(boloChocolate);
